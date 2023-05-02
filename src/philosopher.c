@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 11:17:19 by joel              #+#    #+#             */
-/*   Updated: 2023/05/02 20:48:40 by joel             ###   ########.fr       */
+/*   Updated: 2023/05/02 21:32:13 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ static void	philo_eat(t_philosopher *philosopher, t_sim *sim)
 	pthread_mutex_lock(philosopher->left_fork);
 	log_msg(philosopher->id, CC_BLUE"has taken a fork"CC_OFF, sim);
 	log_state(philosopher->id, EAT, sim);
-	pthread_mutex_lock(sim->meal_mutex);
+	pthread_mutex_lock(philosopher->philo_mutex);
 	philosopher->last_meal = get_timestamp(sim->time_start);
 	philosopher->n_meals += 1;
-	pthread_mutex_unlock(sim->meal_mutex);
+	pthread_mutex_unlock(philosopher->philo_mutex);
 	precise_usleep(sim->time_eat);
 	pthread_mutex_unlock(philosopher->left_fork);
 	pthread_mutex_unlock(philosopher->right_fork);
@@ -73,12 +73,8 @@ static void	philo_routine(t_philosopher *philosopher, t_sim *sim)
 		}
 		else
 			pthread_mutex_unlock(sim->sync_mutex);
-		if (should_sim_stop(sim))
-			return ;
 		log_state(philosopher->id, SLEEP, sim);
 		precise_usleep(sim->time_sleep);
-		if (should_sim_stop(sim))
-			return ;
 		log_state(philosopher->id, THINK, sim);
 	}
 }

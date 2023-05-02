@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:52:56 by joel              #+#    #+#             */
-/*   Updated: 2023/04/28 12:27:44 by joel             ###   ########.fr       */
+/*   Updated: 2023/05/02 21:34:19 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,5 @@ void	precise_usleep(t_msec msec)
 
 	time = get_time();
 	while (get_time() - time < msec)
-		usleep(msec / 10);
+		usleep(10);
 }

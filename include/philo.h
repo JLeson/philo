@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
+/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:47:47 by joel              #+#    #+#             */
-/*   Updated: 2023/05/02 15:59:49 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/05/02 21:15:52 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_philosopher
 	t_thread		thread_id;
 	t_mutex			*right_fork;
 	t_mutex			*left_fork;
+	t_mutex			*philo_mutex;
 	unsigned int	n_meals;
 	t_msec			last_meal;
 	unsigned int	is_dead;

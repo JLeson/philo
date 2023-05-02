@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sim.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
+/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 14:49:47 by joel              #+#    #+#             */
-/*   Updated: 2023/05/02 17:19:48 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/05/02 21:26:28 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ void	check_starvation(t_sim *sim)
 	while (cidx < sim->n_philo)
 	{
 		philosopher = *(sim->philosophers + cidx);
-		pthread_mutex_lock(sim->meal_mutex);
+		pthread_mutex_lock(philosopher->philo_mutex);
 		if (get_timestamp(sim->time_start) - philosopher->last_meal
 			> sim->time_die)
 		{
-			pthread_mutex_unlock(sim->meal_mutex);
+			pthread_mutex_unlock(philosopher->philo_mutex);
 			log_state(philosopher->id, DIE, sim);
 			pthread_mutex_lock(sim->sync_mutex);
 			sim->should_stop = TRUE;
@@ -85,7 +85,7 @@ void	check_starvation(t_sim *sim)
 			return ;
 		}
 		else
-			pthread_mutex_unlock(sim->meal_mutex);
+			pthread_mutex_unlock(philosopher->philo_mutex);
 		cidx++;
 	}
 }

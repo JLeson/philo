@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 11:12:50 by joel              #+#    #+#             */
-/*   Updated: 2023/04/28 16:40:10 by joel             ###   ########.fr       */
+/*   Updated: 2023/05/02 21:22:49 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,12 @@ static t_philosopher	*init_philosopher(unsigned int id, t_sim *sim)
 	philosopher = (t_philosopher *)malloc(sizeof(t_philosopher));
 	if (!philosopher)
 		return (NULL);
+	philosopher->philo_mutex = (t_mutex *)malloc(sizeof(t_mutex));
+	if (!philosopher->philo_mutex)
+	{
+		free(philosopher);
+		return (NULL);
+	}
 	if (create_philo_thread(&thread_id, philosopher, sim))
 	{
 		free(philosopher);
