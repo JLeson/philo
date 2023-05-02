@@ -6,7 +6,7 @@
 /*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 14:49:47 by joel              #+#    #+#             */
-/*   Updated: 2023/05/02 15:55:03 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/05/02 16:22:42 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	wait_for_threads(t_sim *sim)
 	t_philosopher	*philosopher;
 
 	cidx = 0;
-	while (sim->n_philo < cidx)
+	while (cidx < sim->n_philo)
 	{
 		philosopher = *(sim->philosophers + cidx);
 		pthread_join(philosopher->thread_id, NULL);
