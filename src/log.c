@@ -6,7 +6,7 @@
 /*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 11:48:47 by joel              #+#    #+#             */
-/*   Updated: 2023/05/02 14:30:44 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/05/02 16:53:14 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 void	log_msg(unsigned int id, const char *msg, t_sim *sim)
 {
 	pthread_mutex_lock(sim->log_mutex);
-	if (!sim->should_stop)
+	if (!should_sim_stop(sim))
 		printf(CC_YELLOW"%lld "CC_OFF"%u "CC_BOLD"%s\n"CC_OFF,
 			get_timestamp(sim->time_start), id, msg);
 	pthread_mutex_unlock(sim->log_mutex);

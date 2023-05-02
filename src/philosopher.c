@@ -6,7 +6,7 @@
 /*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 11:17:19 by joel              #+#    #+#             */
-/*   Updated: 2023/05/02 16:10:20 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/05/02 17:05:38 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ static void	philo_eat(t_philosopher *philosopher, t_sim *sim)
 	log_state(philosopher->id, EAT, sim);
 	pthread_mutex_lock(sim->meal_mutex);
 	philosopher->last_meal = get_timestamp(sim->time_start);
+	philosopher->n_meals += 1;
 	pthread_mutex_unlock(sim->meal_mutex);
 	precise_usleep(sim->time_eat);
-	philosopher->n_meals += 1;
 	pthread_mutex_unlock(philosopher->left_fork);
 	pthread_mutex_unlock(philosopher->right_fork);
 }
@@ -67,8 +67,6 @@ static void	philo_routine(t_philosopher *philosopher, t_sim *sim)
 		{
 			sim->should_stop = TRUE;
 			pthread_mutex_unlock(sim->sync_mutex);
-			wait_for_threads(sim);
-			sim->is_running = FALSE;
 			return ;
 		}
 		else
