@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   log.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 11:48:47 by joel              #+#    #+#             */
-/*   Updated: 2023/04/28 15:15:51 by joel             ###   ########.fr       */
+/*   Updated: 2023/05/02 14:30:44 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	log_msg(unsigned int id, const char *msg, t_sim *sim)
 		printf(CC_YELLOW"%lld "CC_OFF"%u "CC_BOLD"%s\n"CC_OFF,
 			get_timestamp(sim->time_start), id, msg);
 	pthread_mutex_unlock(sim->log_mutex);
-
 }
 
 void	log_state(unsigned int id, unsigned int state, t_sim *sim)

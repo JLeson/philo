@@ -6,7 +6,7 @@
 /*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:47:47 by joel              #+#    #+#             */
-/*   Updated: 2023/05/02 14:03:34 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/05/02 15:59:49 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,10 @@ unsigned int	is_int32(char *arg);
 //	sim.c
 
 void			start_sim(t_sim *sim);
-void			stop_sim(t_sim *sim);
+void			clean_sim(t_sim *sim);
 void			check_starvation(t_sim *sim);
 void			wait_for_threads(t_sim *sim);
+unsigned int	should_sim_stop(t_sim *sim);
 
 //	philosopher.c
 

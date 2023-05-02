@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.c                                     :+:      :+:    :+:   */
+/*   philosopher.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 11:17:19 by joel              #+#    #+#             */
-/*   Updated: 2023/05/02 14:04:51 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/05/02 15:55:33 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,39 @@ static void	philo_eat(t_philosopher *philosopher, t_sim *sim)
 	pthread_mutex_unlock(philosopher->right_fork);
 }
 
+
+
+static void	philo_routine(t_philosopher *philosopher, t_sim *sim)
+{
+	if (philosopher->id % 2)
+	{
+		log_state(philosopher->id, THINK, sim);
+		precise_usleep(sim->time_eat);
+	}
+	while (!should_sim_stop(sim))
+	{
+		philo_eat(philosopher, sim);
+		pthread_mutex_lock(sim->sync_mutex);
+		if (is_meal_quota_met(sim) && !sim->should_stop)
+		{
+			sim->should_stop = TRUE;
+			pthread_mutex_unlock(sim->sync_mutex);
+			wait_for_threads(sim);
+			sim->is_running = FALSE;
+			return ;
+		}
+		else
+			pthread_mutex_unlock(sim->sync_mutex);
+		if (should_sim_stop(sim))
+			return ;
+		log_state(philosopher->id, SLEEP, sim);
+		precise_usleep(sim->time_sleep);
+		if (should_sim_stop(sim))
+			return ;
+		log_state(philosopher->id, THINK, sim);
+	}
+}
+
 void	*philo_main(void *arg)
 {
 	t_thread_arg	*thread_arg;
@@ -76,22 +109,6 @@ void	*philo_main(void *arg)
 	}
 	sim = thread_arg->sim;
 	philosopher = thread_arg->philosopher;
-	if (philosopher->id % 2)
-	{
-		log_state(philosopher->id, THINK, sim);
-		precise_usleep(sim->time_eat);
-	}
-	while (TRUE)
-	{
-		philo_eat(philosopher, sim);
-		if (sim->should_stop || is_meal_quota_met(sim))
-		{
-			sim->should_stop = TRUE;
-			return (NULL);
-		}
-		log_state(philosopher->id, SLEEP, sim);
-		precise_usleep(sim->time_sleep);
-		log_state(philosopher->id, THINK, sim);
-	}
+	philo_routine(philosopher, sim);
 	return (NULL);
 }

@@ -8,7 +8,7 @@ SRCFILES				=	philo.c				\
 							init_forks.c		\
 							init_philosophers.c	\
 							sim.c				\
-							philosophers.c		\
+							philosopher.c		\
 							log.c				\
 							validation.c		\
 							time.c				\

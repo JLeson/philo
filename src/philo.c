@@ -6,7 +6,7 @@
 /*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:50:17 by joel              #+#    #+#             */
-/*   Updated: 2023/05/02 14:04:48 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/05/02 16:00:17 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,12 @@ int	main(int argc, char **argv)
 	if (argc == 6 && sim.n_meals == 0)
 	{
 		wait_for_threads(&sim);
-		stop_sim(&sim);
+		clean_sim(&sim);
 		return (SUCCES);
 	}
 	start_sim(&sim);
 	while (sim.is_running)
 		check_starvation(&sim);
+	clean_sim(&sim);
 	return (SUCCES);
 }
