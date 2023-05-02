@@ -6,7 +6,7 @@
 /*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 14:49:47 by joel              #+#    #+#             */
-/*   Updated: 2023/05/02 17:05:32 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/05/02 17:19:48 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	check_starvation(t_sim *sim)
 	{
 		wait_for_threads(sim);
 		sim->is_running = FALSE;
+		return ;
 	}
 	cidx = 0;
 	while (cidx < sim->n_philo)
@@ -75,8 +76,8 @@ void	check_starvation(t_sim *sim)
 			> sim->time_die)
 		{
 			pthread_mutex_unlock(sim->meal_mutex);
-			pthread_mutex_lock(sim->sync_mutex);
 			log_state(philosopher->id, DIE, sim);
+			pthread_mutex_lock(sim->sync_mutex);
 			sim->should_stop = TRUE;
 			pthread_mutex_unlock(sim->sync_mutex);
 			wait_for_threads(sim);
