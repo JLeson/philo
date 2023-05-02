@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
+/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 11:17:19 by joel              #+#    #+#             */
-/*   Updated: 2023/05/02 17:05:38 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/05/02 20:48:40 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ static void	philo_eat(t_philosopher *philosopher, t_sim *sim)
 
 static void	philo_routine(t_philosopher *philosopher, t_sim *sim)
 {
+	if (sim->n_philo == 1)
+		return ;
 	if (philosopher->id % 2)
 		precise_usleep(sim->time_eat);
 	while (!should_sim_stop(sim))
