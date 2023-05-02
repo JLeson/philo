@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sim.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 14:49:47 by joel              #+#    #+#             */
-/*   Updated: 2023/04/28 15:26:43 by joel             ###   ########.fr       */
+/*   Updated: 2023/05/02 14:04:45 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	stop_sim(t_sim *sim)
 	sim->is_running = FALSE;
 }
 
-static void	wait_for_threads(t_sim *sim)
+void	wait_for_threads(t_sim *sim)
 {
 	unsigned int	cidx;
 	t_philosopher	*philosopher;

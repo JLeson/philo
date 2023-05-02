@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:47:47 by joel              #+#    #+#             */
-/*   Updated: 2023/04/28 14:56:37 by joel             ###   ########.fr       */
+/*   Updated: 2023/05/02 14:03:34 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_sim
 	t_mutex			*log_mutex;
 	t_mutex			*sync_mutex;
 	t_mutex			*meal_mutex;
+	int				argc;
 }	t_sim;
 
 typedef struct s_philosopher
@@ -97,6 +98,7 @@ unsigned int	is_int32(char *arg);
 void			start_sim(t_sim *sim);
 void			stop_sim(t_sim *sim);
 void			check_starvation(t_sim *sim);
+void			wait_for_threads(t_sim *sim);
 
 //	philosopher.c
 

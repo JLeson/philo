@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 11:17:19 by joel              #+#    #+#             */
-/*   Updated: 2023/04/28 17:32:35 by joel             ###   ########.fr       */
+/*   Updated: 2023/05/02 14:04:51 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void	*philo_main(void *arg)
 	t_philosopher	*philosopher;
 
 	thread_arg = (t_thread_arg *)arg;
+	if (thread_arg->sim->argc == 6 && thread_arg->sim->n_meals == 0)
+		return (NULL);
 	while (TRUE)
 	{
 		pthread_mutex_lock(thread_arg->sim->sync_mutex);
