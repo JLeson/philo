@@ -6,7 +6,7 @@
 /*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 11:17:19 by joel              #+#    #+#             */
-/*   Updated: 2023/05/02 15:55:33 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/05/02 16:10:20 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,10 @@ static void	philo_eat(t_philosopher *philosopher, t_sim *sim)
 	pthread_mutex_unlock(philosopher->right_fork);
 }
 
-
-
 static void	philo_routine(t_philosopher *philosopher, t_sim *sim)
 {
 	if (philosopher->id % 2)
-	{
-		log_state(philosopher->id, THINK, sim);
 		precise_usleep(sim->time_eat);
-	}
 	while (!should_sim_stop(sim))
 	{
 		philo_eat(philosopher, sim);
