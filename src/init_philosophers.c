@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 11:12:50 by joel              #+#    #+#             */
-/*   Updated: 2023/05/02 21:22:49 by joel             ###   ########.fr       */
+/*   Updated: 2023/05/02 22:15:12 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,19 @@ static int	create_philo_thread(t_thread *thread_id,
 			philo_main, (void *)thread_arg));
 }
 
+static void	init_data(unsigned int id, t_philosopher *philosopher, t_sim *sim)
+{
+	philosopher->id = id;
+	philosopher->n_meals = 0;
+	philosopher->last_meal = 0;
+	philosopher->is_finished = FALSE;
+	philosopher->right_fork = *(sim->forks + id - 1);
+	if (id > 1)
+		philosopher->left_fork = *(sim->forks + id - 2);
+	else
+		philosopher->left_fork = *(sim->forks + sim->n_philo - 1);
+}
+
 static t_philosopher	*init_philosopher(unsigned int id, t_sim *sim)
 {
 	t_philosopher	*philosopher;
@@ -48,17 +61,9 @@ static t_philosopher	*init_philosopher(unsigned int id, t_sim *sim)
 		free(philosopher);
 		return (NULL);
 	}
-	pthread_mutex_lock(sim->sync_mutex);
-	philosopher->id = id;
 	philosopher->thread_id = thread_id;
-	philosopher->n_meals = 0;
-	philosopher->last_meal = 0;
-	philosopher->is_dead = FALSE;
-	philosopher->right_fork = *(sim->forks + id - 1);
-	if (id > 1)
-		philosopher->left_fork = *(sim->forks + id - 2);
-	else
-		philosopher->left_fork = *(sim->forks + sim->n_philo - 1);
+	pthread_mutex_lock(sim->sync_mutex);
+	init_data(id, philosopher, sim);
 	pthread_mutex_unlock(sim->sync_mutex);
 	return (philosopher);
 }

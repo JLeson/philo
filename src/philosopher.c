@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 11:17:19 by joel              #+#    #+#             */
-/*   Updated: 2023/05/02 21:32:13 by joel             ###   ########.fr       */
+/*   Updated: 2023/05/02 22:04:22 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,6 @@
 #include <stdio.h>
 #include "colorcodes.h"
 #include "philo.h"
-
-unsigned int	is_meal_quota_met(t_sim *sim)
-{
-	unsigned int	cidx;
-	t_philosopher	*philosopher;
-
-	cidx = 0;
-	if (sim->n_meals == 0)
-		return (FALSE);
-	while (cidx < sim->n_philo)
-	{
-		pthread_mutex_lock(sim->meal_mutex);
-		philosopher = *(sim->philosophers + cidx);
-		if (philosopher->n_meals < sim->n_meals)
-		{
-			pthread_mutex_unlock(sim->meal_mutex);
-			return (FALSE);
-		}
-		else
-			pthread_mutex_unlock(sim->meal_mutex);
-		cidx++;
-	}
-	return (TRUE);
-}
 
 static void	philo_eat(t_philosopher *philosopher, t_sim *sim)
 {
@@ -64,15 +40,12 @@ static void	philo_routine(t_philosopher *philosopher, t_sim *sim)
 	while (!should_sim_stop(sim))
 	{
 		philo_eat(philosopher, sim);
-		pthread_mutex_lock(sim->sync_mutex);
-		if (is_meal_quota_met(sim) && !sim->should_stop)
+		if (philosopher->n_meals == sim->n_meals)
 		{
-			sim->should_stop = TRUE;
-			pthread_mutex_unlock(sim->sync_mutex);
-			return ;
+			pthread_mutex_lock(philosopher->philo_mutex);
+			philosopher->is_finished = TRUE;
+			pthread_mutex_unlock(philosopher->philo_mutex);
 		}
-		else
-			pthread_mutex_unlock(sim->sync_mutex);
 		log_state(philosopher->id, SLEEP, sim);
 		precise_usleep(sim->time_sleep);
 		log_state(philosopher->id, THINK, sim);

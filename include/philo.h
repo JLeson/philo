@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:47:47 by joel              #+#    #+#             */
-/*   Updated: 2023/05/02 21:15:52 by joel             ###   ########.fr       */
+/*   Updated: 2023/05/02 22:22:24 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ typedef struct s_sim
 	t_mutex			**forks;
 	t_mutex			*log_mutex;
 	t_mutex			*sync_mutex;
-	t_mutex			*meal_mutex;
 	int				argc;
 }	t_sim;
 
@@ -65,7 +64,7 @@ typedef struct s_philosopher
 	t_mutex			*philo_mutex;
 	unsigned int	n_meals;
 	t_msec			last_meal;
-	unsigned int	is_dead;
+	unsigned int	is_finished;
 }	t_philosopher;
 
 typedef struct s_thread_arg
@@ -101,6 +100,7 @@ void			clean_sim(t_sim *sim);
 void			check_starvation(t_sim *sim);
 void			wait_for_threads(t_sim *sim);
 unsigned int	should_sim_stop(t_sim *sim);
+void			check_meal_quota_met(t_sim *sim);
 
 //	philosopher.c
 

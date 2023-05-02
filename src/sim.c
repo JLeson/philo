@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 14:49:47 by joel              #+#    #+#             */
-/*   Updated: 2023/05/02 21:26:28 by joel             ###   ########.fr       */
+/*   Updated: 2023/05/02 22:21:13 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	clean_sim(t_sim *sim)
 	}
 	pthread_mutex_destroy(sim->sync_mutex);
 	pthread_mutex_destroy(sim->log_mutex);
-	pthread_mutex_destroy(sim->meal_mutex);
 	free(sim->philosophers);
 	free(sim->forks);
 }
@@ -56,17 +55,32 @@ void	wait_for_threads(t_sim *sim)
 	}
 }
 
+void	check_meal_quota_met(t_sim *sim)
+{
+	t_philosopher	*philosopher;
+	unsigned int	cidx;
+
+	cidx = 0;
+	while (cidx < sim->n_philo)
+	{
+		philosopher = *(sim->philosophers + cidx);
+		if (!philosopher->is_finished)
+			return ;
+		cidx++;
+	}
+	pthread_mutex_lock(sim->sync_mutex);
+	sim->should_stop = TRUE;
+	pthread_mutex_unlock(sim->sync_mutex);
+	wait_for_threads(sim);
+	sim->is_running = FALSE;
+	return ;
+}
+
 void	check_starvation(t_sim *sim)
 {
 	unsigned int	cidx;
 	t_philosopher	*philosopher;
 
-	if (should_sim_stop(sim))
-	{
-		wait_for_threads(sim);
-		sim->is_running = FALSE;
-		return ;
-	}
 	cidx = 0;
 	while (cidx < sim->n_philo)
 	{
