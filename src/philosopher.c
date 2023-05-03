@@ -6,11 +6,12 @@
 /*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 11:17:19 by joel              #+#    #+#             */
-/*   Updated: 2023/05/03 15:55:42 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/05/03 18:30:56 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include "colorcodes.h"
 #include "philo.h"
@@ -66,5 +67,6 @@ void	*philo_main(void *arg)
 	sim = thread_arg->sim;
 	philosopher = thread_arg->philosopher;
 	philo_routine(philosopher, sim);
+	free(thread_arg);
 	return (NULL);
 }

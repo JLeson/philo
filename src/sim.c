@@ -6,7 +6,7 @@
 /*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 14:49:47 by joel              #+#    #+#             */
-/*   Updated: 2023/05/03 16:42:51 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/05/03 18:41:13 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	clean_sim(t_sim *sim)
 	{
 		pthread_mutex_destroy(*(sim->forks + cidx));
 		pthread_mutex_destroy((*(sim->philosophers + cidx))->philo_mutex);
+		free((*(sim->philosophers + cidx))->philo_mutex);
 		free(*(sim->philosophers + cidx));
 		free(*(sim->forks + cidx));
 		cidx++;
