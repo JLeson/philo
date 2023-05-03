@@ -6,7 +6,7 @@
 /*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 11:12:50 by joel              #+#    #+#             */
-/*   Updated: 2023/05/03 16:35:20 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/05/03 16:41:08 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static t_philosopher	*init_philosopher(unsigned int id, t_sim *sim)
 	pthread_mutex_init(philosopher->philo_mutex, NULL);
 	if (create_philo_thread(&thread_id, philosopher, sim))
 	{
+		free(philosopher->philo_mutex);
 		free(philosopher);
 		return (NULL);
 	}
