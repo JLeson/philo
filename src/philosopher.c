@@ -6,7 +6,7 @@
 /*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 11:17:19 by joel              #+#    #+#             */
-/*   Updated: 2023/05/03 15:44:28 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/05/03 15:55:42 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ static void	philo_eat(t_philosopher *philosopher, t_sim *sim)
 	log_msg(philosopher->id, CC_BLUE"has taken a fork"CC_OFF, sim);
 	pthread_mutex_lock(philosopher->left_fork);
 	log_msg(philosopher->id, CC_BLUE"has taken a fork"CC_OFF, sim);
-	log_state(philosopher->id, EAT, sim);
 	pthread_mutex_lock(philosopher->philo_mutex);
 	philosopher->last_meal = get_timestamp(sim->time_start);
 	pthread_mutex_unlock(philosopher->philo_mutex);
+	log_state(philosopher->id, EAT, sim);
 	philosopher->n_meals += 1;
 	precise_usleep(sim->time_eat);
 	pthread_mutex_unlock(philosopher->left_fork);
