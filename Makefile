@@ -8,6 +8,8 @@ SRCFILES				=	philo.c				\
 							init_forks.c		\
 							init_philosophers.c	\
 							sim.c				\
+							sim_utils.c			\
+							monitor.c			\
 							philosopher.c		\
 							log.c				\
 							validation.c		\

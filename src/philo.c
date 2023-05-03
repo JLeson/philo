@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:50:17 by joel              #+#    #+#             */
-/*   Updated: 2023/05/02 22:22:57 by joel             ###   ########.fr       */
+/*   Updated: 2023/05/03 15:44:45 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,11 @@ int	main(int argc, char **argv)
 	sim.log_mutex = &log_mutex;
 	if (init_sim(&sim, argc, argv))
 		return (ERROR);
-	if (argc == 6 && sim.n_meals == 0)
-	{
-		wait_for_threads(&sim);
-		clean_sim(&sim);
-		return (SUCCES);
-	}
 	start_sim(&sim);
+	if (sim.argc == 6 && sim.n_meals == 0)
+		stop_sim(&sim);
 	while (sim.is_running)
-	{
-		check_starvation(&sim);
-		if (should_sim_stop(&sim))
-			continue ;
-		check_meal_quota_met(&sim);
-	}
+		monitor(&sim);
 	clean_sim(&sim);
 	return (SUCCES);
 }
