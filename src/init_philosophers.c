@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_philosophers.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 11:12:50 by joel              #+#    #+#             */
-/*   Updated: 2023/05/02 22:15:12 by joel             ###   ########.fr       */
+/*   Updated: 2023/05/03 16:35:20 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static t_philosopher	*init_philosopher(unsigned int id, t_sim *sim)
 		free(philosopher);
 		return (NULL);
 	}
+	pthread_mutex_init(philosopher->philo_mutex, NULL);
 	if (create_philo_thread(&thread_id, philosopher, sim))
 	{
 		free(philosopher);

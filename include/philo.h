@@ -6,7 +6,7 @@
 /*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:47:47 by joel              #+#    #+#             */
-/*   Updated: 2023/05/03 15:37:03 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/05/03 16:29:40 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,22 @@
 
 # include <pthread.h>
 
+# define USLEEP_TIME_STEP	200
+
 # define INT_MAX	2147483647
 
 # define MAX_PHILO	200
 
-# define TRUE    1
-# define FALSE   0
+# define TRUE	1
+# define FALSE	0
 
-# define ERROR   1
-# define SUCCES  0
+# define ERROR	1
+# define SUCCES	0
 
-# define THINK   0
-# define EAT     1
-# define SLEEP   2
-# define DIE     3
+# define THINK	0
+# define EAT	1
+# define SLEEP	2
+# define DIE	3
 
 typedef pthread_mutex_t			t_mutex;
 typedef pthread_t				t_thread;

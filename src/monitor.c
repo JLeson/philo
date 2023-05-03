@@ -6,7 +6,7 @@
 /*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:52:44 by fsarkoh           #+#    #+#             */
-/*   Updated: 2023/05/03 15:40:02 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/05/03 16:38:21 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,14 @@ static unsigned int	is_meal_quota_met(t_sim *sim)
 	while (cidx < sim->n_philo)
 	{
 		philosopher = *(sim->philosophers + cidx);
+		pthread_mutex_lock(philosopher->philo_mutex);
 		if (!philosopher->is_finished)
+		{
+			pthread_mutex_unlock(philosopher->philo_mutex);
 			return (FALSE);
+		}
+		else
+			pthread_mutex_unlock(philosopher->philo_mutex);
 		cidx++;
 	}
 	return (TRUE);
